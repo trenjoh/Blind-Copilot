@@ -23,10 +23,9 @@ GPIO.setup(BUTTON_2_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(BUTTON_3_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 GPIO.setup(BUTTON_4_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
-# Set up Tesseract path if required
+
 pytesseract.pytesseract.tesseract_cmd = r'/usr/bin/tesseract'
 
-# Global variable to hold the running process
 current_process = None
 
 # Function to run external programs
@@ -40,13 +39,13 @@ def run_program(script_path, message):
     engine.runAndWait()
     current_process = subprocess.Popen(['python3', script_path])
 
-# Function to extract text and speak it
+
 def extract_text_and_speak(image_path):
     try:
         img = Image.open(image_path)
-        img = img.convert('L')  # Optional: Convert image to grayscale
+        img = img.convert('L') 
         text = pytesseract.image_to_string(img)
-        if text.strip():  # Speak the extracted text if any
+        if text.strip():
             print("Extracted Text:\n", text)
             engine.say(text)
         else:  # Handle cases where no text is found
@@ -111,7 +110,7 @@ try:
                     print("Exiting text decoding mode...")
                     text_mode = False
 
-            # Stop the camera and close OpenCV window
+            
             camera.stop()
             cv2.destroyAllWindows()
             time.sleep(0.3)
