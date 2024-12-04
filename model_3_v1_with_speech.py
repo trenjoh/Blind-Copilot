@@ -7,7 +7,7 @@ import time  # For handling the timer
 
 engine = pyttsx3.init()
 rate = engine.getProperty('rate')
-engine.setProperty('rate', rate - 40)  # Adjust this value for desired speed
+engine.setProperty('rate', rate - 40)  
 
 # Delay the execution for 10 seconds
 print("Starting in 10 seconds...")
@@ -17,7 +17,7 @@ engine.say(message)
 engine.runAndWait()
 
 try:
-    # Load the TFLite model
+    # Loading the TFLite model
     interpreter = tflite.Interpreter(model_path="/home/john/Desktop/model_4.tflite")
     interpreter.allocate_tensors()
 
@@ -32,12 +32,12 @@ try:
     picam2.configure(picam2.create_preview_configuration(main={"size": (640, 480)}))  # Set a larger preview size
     picam2.start()
 
-    # Initialize timer
+   
     last_print_time = time.time()
     display_interval = 2  # Display prediction every 2 seconds
-    start_time = time.time()  # Store the start time for the 40-second limit
+    start_time = time.time()  
 
-    while True:  # Wrapped the image capture and processing to allow for continuous preview and processing
+    while True:  
         # Capture image from PiCamera
         img = picam2.capture_array()
 
@@ -93,7 +93,7 @@ try:
             engine.stop()
             break
 
-        # Check for key press to exit
+        
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
@@ -101,5 +101,5 @@ except Exception as e:
     print(f'Error: {e}')
 
 finally:
-    picam2.stop()  # Ensure the camera is stopped
+    picam2.stop()  
     cv2.destroyAllWindows()  # Close the OpenCV window

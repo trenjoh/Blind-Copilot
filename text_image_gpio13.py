@@ -8,7 +8,7 @@ import time
 import RPi.GPIO as GPIO
 
 # GPIO setup
-BUTTON_2_PIN = 13  # Button for Text Extraction
+BUTTON_2_PIN = 13 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(BUTTON_2_PIN, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
@@ -22,20 +22,19 @@ camera.start()
 # Initialize the TTS engine
 engine = pyttsx3.init()
 
-# Set speech rate (lower for slower speed)
 rate = engine.getProperty('rate')
-engine.setProperty('rate', rate - 40)  # Adjust this value for desired speed
+engine.setProperty('rate', rate - 40)  
 message = "Position your book well,and press the button again to read"
 engine.say(message)
 engine.runAndWait()
-# Set voice to female, United States English
+# female, United States English
 for voice in engine.getProperty('voices'):
     if "female" in voice.name.lower() and "english" in voice.languages and "us" in voice.id.lower():
         engine.setProperty('voice', voice.id)
         break
 
-# Specify the path to Tesseract (adjust for your Raspberry Pi setup)
-pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"  # Adjust to your Tesseract path
+
+pytesseract.pytesseract.tesseract_cmd = r"/usr/bin/tesseract"  
 
 # Set the directory for saved images
 save_directory = "/home/john/Desktop/extracts"
